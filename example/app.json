@@ -1,5 +1,6 @@
 {
   "expo": {
+    "entryPoint": "./index.js",
     "name": "example",
     "slug": "example",
     "version": "1.0.0",

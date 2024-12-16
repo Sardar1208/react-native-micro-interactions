@@ -182,5 +182,8 @@
   "create-react-native-library": {
     "type": "library",
     "version": "0.42.0"
+  },
+  "dependencies": {
+    "react-native-reanimated": "~3.10.1"
   }
 }
