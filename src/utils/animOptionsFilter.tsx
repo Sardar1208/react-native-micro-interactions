@@ -1,62 +1,61 @@
 import type { BuzzAnimOptions, ClickAnimOptions, IBuzzAnimOptions, IClickAnimOptions, IPopInAnimOptions, ITextSlideAnimOptions, PopInAnimOptions, TextSlideAnimOptions } from "../types/animations";
-import { buzzAnimDefaults, clickAnimDefaults, popInAnimDefaults, TextSlideAnimDefaults } from "../constants/defaults";
 
-function filterClickAnimOptions(props?: ClickAnimOptions) {
+function filterClickAnimOptions(config:IClickAnimOptions , props?: ClickAnimOptions,) {
     if (props == null) {
-        return clickAnimDefaults;
+        return config;
     }
 
     let animationOptions: IClickAnimOptions = {
-        shrink: props.shrink ?? clickAnimDefaults.shrink,
-        shrinkDuration: Math.abs(props.shrinkDuration ?? clickAnimDefaults.shrinkDuration),
+        shrink: props.shrink ?? config.shrink ,
+        shrinkDuration: Math.abs(props.shrinkDuration ?? config.shrinkDuration),
     }
 
     if ((animationOptions.shrink < 0 || animationOptions.shrink > 1)) {
-        animationOptions.shrink = clickAnimDefaults.shrink;
+        animationOptions.shrink = config.shrink;
     }
 
     return animationOptions;
 }
 
-function filterPopInAnimOptions(props?: PopInAnimOptions) {
+function filterPopInAnimOptions(config:IPopInAnimOptions,props?: PopInAnimOptions) {
     if (props == null) {
-        return popInAnimDefaults;
+        return config;
     }
 
     let animationOptions: IPopInAnimOptions = {
-        duration: Math.abs(props.duration ?? popInAnimDefaults.duration),
-        withBounce: props.withBounce ?? popInAnimDefaults.withBounce,
+        duration: Math.abs(props.duration ?? config.duration),
+        withBounce: props.withBounce ?? config.withBounce,
     }
 
     return animationOptions;
 }
 
-function filterBuzzAnimOptions(props?: BuzzAnimOptions) {
+function filterBuzzAnimOptions(config:IBuzzAnimOptions,props?: BuzzAnimOptions) {
     if (props == null) {
-        return buzzAnimDefaults;
+        return config;
     }
 
     let animationOptions: IBuzzAnimOptions = {
-        frequency: Math.abs(props.frequency ?? buzzAnimDefaults.frequency),
-        rotation: Math.abs(props.rotation ?? buzzAnimDefaults.rotation),
-        duration: Math.abs(props.duration ?? buzzAnimDefaults.rotation),
+        frequency: Math.abs(props.frequency ?? config.frequency),
+        rotation: Math.abs(props.rotation ?? config.rotation),
+        duration: Math.abs(props.duration ?? config.rotation),
     }
 
     if ((animationOptions.rotation < 0 || animationOptions.rotation > 360)) {
-        animationOptions.rotation = buzzAnimDefaults.rotation;
+        animationOptions.rotation = config.rotation;
     }
 
     return animationOptions;
 }
 
-function filterTextSlideAnimOptions(props?: TextSlideAnimOptions) {
+function filterTextSlideAnimOptions(config:ITextSlideAnimOptions,props?: TextSlideAnimOptions) {
     if (props == null) {
-        return TextSlideAnimDefaults;
+        return config;
     }
 
     let animationOptions: ITextSlideAnimOptions = {
-        duration: Math.abs(props.duration ?? TextSlideAnimDefaults.duration),
-        offset: props.offset ?? TextSlideAnimDefaults.offset,
+        duration: Math.abs(props.duration ?? config.duration),
+        offset: props.offset ?? config.offset,
     }
 
     return animationOptions;

@@ -2,15 +2,16 @@ import { useAnimatedStyle, useSharedValue, withSequence, withTiming } from "reac
 import type { ClickAnimOptions, IClickAnimOptions } from "../types/animations";
 import { filterClickAnimOptions } from "../utils/animOptionsFilter";
 
-export const click = (props?: ClickAnimOptions) => {
 
-    const animationOptions: IClickAnimOptions = filterClickAnimOptions(props);
+export const click = (config: IClickAnimOptions, props?: ClickAnimOptions,) => {
+
+    const animationOptions: IClickAnimOptions = filterClickAnimOptions(config, props);
     let size = useSharedValue(1);
 
-    const runAnimation = () => {
+    const runIndividualAnimation = () => {
         size.value = withSequence(
-            withTiming(animationOptions.shrink, {duration: animationOptions.shrinkDuration}),
-            withTiming(1, {duration: 100}),
+            withTiming(animationOptions.shrink, { duration: animationOptions.shrinkDuration }),
+            withTiming(1, { duration: 100 }),
         );
     }
 
@@ -20,5 +21,5 @@ export const click = (props?: ClickAnimOptions) => {
         }
     })
 
-    return { animatedStyle, runAnimation };
+    return { animatedStyle, runIndividualAnimation };
 }

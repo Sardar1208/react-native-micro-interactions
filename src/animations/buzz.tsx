@@ -2,14 +2,14 @@ import { useAnimatedStyle, useSharedValue, withRepeat, withSequence, withTiming 
 import type { BuzzAnimOptions, IBuzzAnimOptions } from "../types/animations";
 import { filterBuzzAnimOptions } from "../utils/animOptionsFilter";
 
-export const buzz = (props?: BuzzAnimOptions) => {
+export const buzz = (config:IBuzzAnimOptions,props?: BuzzAnimOptions) => {
 
-    const animationOptions: IBuzzAnimOptions = filterBuzzAnimOptions(props);
+    const animationOptions: IBuzzAnimOptions = filterBuzzAnimOptions(config,props);
 
     let rotation = useSharedValue(0);
     let size = useSharedValue(1);
 
-    const runAnimation = () => {
+    const runIndividualAnimation = () => {
         size.value = withTiming(0.95, { duration: 50 });
         rotation.value = withSequence(
             withRepeat(
@@ -31,5 +31,5 @@ export const buzz = (props?: BuzzAnimOptions) => {
         }
     })
 
-    return { animatedStyle, runAnimation };
+    return { animatedStyle, runIndividualAnimation };
 }

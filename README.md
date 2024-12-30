@@ -1,6 +1,8 @@
-# react-native-micro-animations
+# react-native-micro-interactions
 
-micro animations
+Effortlessly enhance your React Native components with subtle and dynamic micro-interaction animations.
+
+This library allows you to add smooth animations when interacting via various events like init, click, error and many more to any existing component by simply wrapping it. No need for extra setup or complex logic—just wrap your component, configure the animation type, and you're good to go!
 
 ## Installation
 
@@ -10,24 +12,159 @@ npm install react-native-micro-animations
 
 ## Usage
 
+### Example 1: Simple button click
+Lets see how we can enhance the UX of a simple button when a user taps it.
 
 ```js
-import { multiply } from 'react-native-micro-animations';
+import { AnimatedWrapper } from 'react-native-micro-animations';
 
-// ...
+return(
+    <AnimatedWrapper animationTrigger='press' animationType='click'>
+        <TouchableOpacity style={styles.container}>
+            <Text>Press me!</Text>
+        </TouchableOpacity>
+    </AnimatedWrapper>
+)
 
-const result = await multiply(3, 7);
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "red",
+    paddingVertical: 15,
+    marginVertical: 10,
+    borderRadius: 10,
+    width: 200,
+  },
+});
 ```
 
+### Example 2: Custom trigger 
 
-## Contributing
+But what if you want to trigger the animation on a custom event ? Like on an error / invalid event. You can do that too!
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+```js
+import { AnimatedWrapper, AnimatedWrapperRef } from 'react-native-micro-animations';
+
+const animatedWrapperRef = useRef<AnimatedWrapperRef>(null);
+
+return(
+    <AnimatedWrapper animationType='buzz' ref={animatedWrapperRef}>
+        <TouchableOpacity 
+            style={styles.container} 
+            onPress={() => { animatedWrapperRef.current?.runAnimation() }}
+        >
+            <Text>Submit</Text>
+        </TouchableOpacity>
+    </AnimatedWrapper>
+)
+
+// same styles...
+```
+
+### Example 3: Group Animations
+
+You can create cool group animations easily using the same format. This animates the children inside your component 
+
+```js
+import { AnimatedWrapper } from 'react-native-micro-animations';
+
+return(
+    <AnimatedWrapper animationType='pop_in' animationTrigger='init' isGroup={true}>
+        <View>
+            <View style={styles.container}>
+                <Text>react-native</Text>
+            </View>
+            <View style={styles.container}>
+                <Text>micro</Text>
+            </View>
+            <View style={styles.container}>
+                <Text>interactions</Text>
+            </View>
+        </View>
+    </AnimatedWrapper>
+)
+
+// same styles...
+```
+
+## Defination
+
+**AnimatedWrapper props**
+
+| Prop Name   | Type         | Description                                       |
+|-------------|--------------|---------------------------------------------------|
+| `animationType` | `AnimationType`   | Specifies which animation you want to run|
+| `animationTrigger?` | `AnimationTrigger`     | Specifies when you want to run the animation |
+| `animationOptions?`  | `AnimationOptions`     | Customization options for the animation |
+| `isGroup?`| `boolean`     | If set to true, this will animate all the children |
+
+
+
+**AnimationType**
+
+| Animation   | Description         |
+|-------------|--------------|
+| `click` | shrinks and expands, giving the effect of click|
+| `buzz` | vibrates in a subtle way to give a feedback of error / invalid state |
+| `pop_in` | pops in from shrinked state. Usually runs when a component is first rendered on the screen |
+| `text_slide_vertical` | text slides in from top / bottom |
+| `text_slide_horizontal` | text slides in from top / bottom |
+
+
+
+**AnimationTrigger**
+
+| Trigger   | Description         |
+|-------------|--------------|
+| `init` | Triggers when the component is first rendered on the screen. Usually paired with pop_in animation |
+| `press` | Triggers when user presses|
+| `long_press` | Triggers when user long presses |
+
+
+## Customization 
+
+You can further customise the and abstract the configuration using a config file. 
+
+Step 1 - Create a mint.config.ts file in your project root.
+Step 2 - In you App.tsx, warp you entry code in a MintProvider 
+```js
+import { MintProvider } from 'react-native-micro-animations';
+import MintConfig from "../mint.config"
+
+<MintProvider config={MintConfig}>
+    // Your entry code
+</MintProvider>
+```
+Step 3 - Customize the values as you like and they will applied by default.
+
+```js
+export default AnimationConfig({
+    "click": {
+        shrink: 0.9,
+        shrinkDuration: 50,
+    },
+    "buzz": {
+        frequency: 2,
+        rotation: 2,
+        duration: 50,
+    },
+    "popIn": {
+        duration: 250,
+        withBounce: true,
+    },
+    "textSlideVertical": {
+        duration:100,
+        offset: 30,
+    },
+    "textSlideHorizontal": {
+        duration:100,
+        offset: 30,
+    }
+})
+```
+You can also do this inline by using the animationOptions prop :)
 
 ## License
 
 MIT
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)

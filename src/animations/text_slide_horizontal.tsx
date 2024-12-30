@@ -2,11 +2,11 @@ import { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reani
 import type { ITextSlideAnimOptions, TextSlideAnimOptions } from "../types/animations";
 import { filterTextSlideAnimOptions } from "../utils/animOptionsFilter";
 
-export const textSlideHorizontal = (props?: TextSlideAnimOptions) => {
-    const animationOptions: ITextSlideAnimOptions = filterTextSlideAnimOptions(props);
+export const textSlideHorizontal = (config:ITextSlideAnimOptions,props?: TextSlideAnimOptions) => {
+    const animationOptions: ITextSlideAnimOptions = filterTextSlideAnimOptions(config,props);
     let offset = useSharedValue(animationOptions.offset);
 
-    const runAnimation = () => {
+    const runIndividualAnimation = () => {
         offset.value = animationOptions.offset;
         offset.value = withTiming(0, { duration: animationOptions.duration })
     }
@@ -17,5 +17,5 @@ export const textSlideHorizontal = (props?: TextSlideAnimOptions) => {
         }
     })
 
-    return { animatedStyle, runAnimation };
+    return { animatedStyle, runIndividualAnimation };
 }

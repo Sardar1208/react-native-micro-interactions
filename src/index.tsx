@@ -1,7 +1,5 @@
 import AnimatedWrapper from "./components/AnimatedWrapper";
+import { AnimationConfig } from "./constants/defaults"
+import { MintProvider, useConfig } from "./provider/MintProvider";
 
-export function multiply(a: number, b: number): Promise<number> {
-  return Promise.resolve(a * b);
-}
-
-export { AnimatedWrapper };
+export { AnimatedWrapper, AnimationConfig, MintProvider, useConfig };
