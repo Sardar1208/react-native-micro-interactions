@@ -1,7 +1,7 @@
 {
-  "name": "react-native-micro-animations",
-  "version": "0.1.0",
-  "description": "micro animations",
+  "name": "react-native-micro-interactions",
+  "version": "1.0.0",
+  "description": "Effortlessly enhance your React Native components with subtle micro-interactions and animations.",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
@@ -37,7 +37,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-micro-animations-example",
+    "example": "yarn workspace react-native-micro-interactions-example",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -48,19 +48,45 @@
   },
   "keywords": [
     "react-native",
+    "react-native animations",
+    "micro-interactions",
+    "react-native micro-interactions",
+    "react-native ui library",
+    "reanimated",
+    "animated components",
+    "react-native animation wrapper",
+    "click animations",
+    "error feedback animations",
+    "group animations",
+    "dynamic ui",
+    "animation provider",
+    "customizable animations",
+    "component animations",
+    "react-native touch feedback",
+    "react-native event animations",
+    "animated ui",
+    "animation customization",
+    "mint animation library",
+    "animation triggers",
+    "animation configurations",
+    "pop-in animation",
+    "vibration effect",
+    "text slide animations",
+    "subtle animations",
+    "user feedback animations",
     "ios",
     "android"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sardar1208/react-native-micro-animations.git"
+    "url": "git+https://github.com/Sardar1208/react-native-micro-interactions.git"
   },
   "author": "sarthakbakre <sarthak.bakre@gmail.com> (https://github.com/Sardar1208)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Sardar1208/react-native-micro-animations/issues"
+    "url": "https://github.com/Sardar1208/react-native-micro-interactions/issues"
   },
-  "homepage": "https://github.com/Sardar1208/react-native-micro-animations#readme",
+  "homepage": "https://github.com/Sardar1208/react-native-micro-interactions#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -81,6 +107,7 @@
     "react": "18.2.0",
     "react-native": "0.74.5",
     "react-native-builder-bob": "^0.30.2",
+    "react-native-reanimated": "~3.10.1",
     "release-it": "^15.0.0",
     "typescript": "~5.3.3"
   },
@@ -89,7 +116,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-reanimated": "~3.10.1"
   },
   "workspaces": [
     "example"
@@ -183,8 +211,5 @@
   "create-react-native-library": {
     "type": "library",
     "version": "0.42.0"
-  },
-  "dependencies": {
-    "react-native-reanimated": "~3.10.1"
   }
 }

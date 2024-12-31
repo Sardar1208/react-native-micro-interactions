@@ -1,7 +1,7 @@
 import { registerRootComponent } from 'expo';
 import { useRef, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
-import { AnimatedWrapper, MintProvider } from 'react-native-micro-animations';
+import { AnimatedWrapper, MintProvider } from 'react-native-micro-interactions';
 import type { AnimatedWrapperRef } from '../../src/components/AnimatedWrapper';
 import MintConfig from '../mint.config';
 

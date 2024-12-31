@@ -1,5 +1,5 @@
 {
-  "name": "react-native-micro-animations-example",
+  "name": "react-native-micro-interactions-example",
   "version": "1.0.0",
   "main": "./App.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.2.3",
-    "expo": "latest",
+    "expo": "^51.0.0",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -19,7 +19,7 @@
     "react-native-web": "~0.19.10"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
+    "@babel/core": "^7.24.0",
     "@types/react-native": "^0.72.8",
     "react-native-builder-bob": "^0.30.2"
   },

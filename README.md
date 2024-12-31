@@ -1,13 +1,19 @@
-# react-native-micro-interactions
+# react-native-micro-interactions (Mint)
 
-Effortlessly enhance your React Native components with subtle and dynamic micro-interaction animations.
+Effortlessly enhance your React Native components with subtle micro-interactions and animations.
 
-This library allows you to add smooth animations when interacting via various events like init, click, error and many more to any existing component by simply wrapping it. No need for extra setup or complex logic—just wrap your component, configure the animation type, and you're good to go!
+This library allows you to take user rexperience to a next level by enhancing the interactions with your UI. Add smooth animations to every component interaction like initialisation, touch, feedback and more. No need for extra setup or complex logic - just wrap your component with Mint and you're good to go!
+
+## Note
+
+This library is very young and ambitious, so any feedback (good or bad) is highly appreciated.
+
+If you like what it offers, please leave a star on GitHub ❤️
 
 ## Installation
 
 ```sh
-npm install react-native-micro-animations
+npm install react-native-micro-interactions
 ```
 
 ## Usage
@@ -16,7 +22,7 @@ npm install react-native-micro-animations
 Lets see how we can enhance the UX of a simple button when a user taps it.
 
 ```js
-import { AnimatedWrapper } from 'react-native-micro-animations';
+import { AnimatedWrapper } from 'react-native-micro-interactions';
 
 return(
     <AnimatedWrapper animationTrigger='press' animationType='click'>
@@ -44,7 +50,7 @@ const styles = StyleSheet.create({
 But what if you want to trigger the animation on a custom event ? Like on an error / invalid event. You can do that too!
 
 ```js
-import { AnimatedWrapper, AnimatedWrapperRef } from 'react-native-micro-animations';
+import { AnimatedWrapper, AnimatedWrapperRef } from 'react-native-micro-interactions';
 
 const animatedWrapperRef = useRef<AnimatedWrapperRef>(null);
 
@@ -67,7 +73,7 @@ return(
 You can create cool group animations easily using the same format. This animates the children inside your component 
 
 ```js
-import { AnimatedWrapper } from 'react-native-micro-animations';
+import { AnimatedWrapper } from 'react-native-micro-interactions';
 
 return(
     <AnimatedWrapper animationType='pop_in' animationTrigger='init' isGroup={true}>
@@ -129,7 +135,7 @@ You can further customise the and abstract the configuration using a config file
 Step 1 - Create a mint.config.ts file in your project root.
 Step 2 - In you App.tsx, warp you entry code in a MintProvider 
 ```js
-import { MintProvider } from 'react-native-micro-animations';
+import { MintProvider } from 'react-native-micro-interactions';
 import MintConfig from "../mint.config"
 
 <MintProvider config={MintConfig}>

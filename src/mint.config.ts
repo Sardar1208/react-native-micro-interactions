@@ -1,4 +1,5 @@
-import {AnimationConfig} from "react-native-micro-interactions"
+import { AnimationConfig } from "react-native-micro-animations";
+
 export default AnimationConfig({
     "click": {
         shrink: 0.9,
@@ -14,11 +15,11 @@ export default AnimationConfig({
         withBounce: false,
     },
     "textSlideVertical": {
-        duration:100,
+        duration: 100,
         offset: 30,
     },
     "textSlideHorizontal": {
-        duration:100,
+        duration: 100,
         offset: 70,
     }
-})
+});
