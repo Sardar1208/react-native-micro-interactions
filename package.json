@@ -1,6 +1,6 @@
 {
   "name": "react-native-micro-interactions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Effortlessly enhance your React Native components with subtle micro-interactions and animations.",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
@@ -117,7 +117,7 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-reanimated": "~3.10.1"
+    "react-native-reanimated": "^3.10.1"
   },
   "workspaces": [
     "example"
