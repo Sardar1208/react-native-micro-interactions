@@ -4,7 +4,7 @@ import type { AnimationOptions, AnimationTrigger, AnimationType } from "../types
 import { Text, TouchableOpacity } from "react-native";
 import React, { forwardRef, isValidElement, useEffect, useImperativeHandle } from "react";
 
-interface AnimatedWrapperProps {
+export interface AnimatedWrapperProps {
     children: React.ReactElement,
     animationType: AnimationType,
     animationTrigger?: AnimationTrigger,
