@@ -98,7 +98,6 @@ const AnimatedWrapper = forwardRef<AnimatedWrapperRef, AnimatedWrapperProps>(
         if (isComponentTouchable(children)) {
             return (
                 <AnimatedChild {...restProps} style={isGroup ? style : combinedStyle} onPress={(...args: any[]) => {
-                    console.log("triggered!!!!")
                     if (animationTrigger === "press") {
                         runAnimation();
                     }

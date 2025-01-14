@@ -3,7 +3,6 @@ const path = require('path');
 
 // Path to the file to be generated
 const configFilePath = path.join(__dirname, '..', 'mint.config.ts');
-console.log("path: ", configFilePath);
 
 // The content of the mint.config.ts file
 const configContent = `import { AnimationConfig } from "react-native-micro-animations";

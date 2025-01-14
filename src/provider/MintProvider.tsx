@@ -35,7 +35,6 @@ export const MintProvider = ({ config, children }: any) => {
 export const useConfig = () => {
     try {
         const ctx = useContext(MintContext)
-        console.log("here: ", ctx);
         return ctx
     } catch (e) {
         throw new Error("Please wrap your App in MintProvider!");

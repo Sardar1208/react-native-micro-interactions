@@ -9,7 +9,6 @@ import type { AnimationOptions, AnimationType, BuzzAnimOptions, ClickAnimOptions
 
 export const useAnimation = (type: AnimationType, options?: AnimationOptions) => {
     const mintConfig = useConfig()
-    console.log("config: ", mintConfig);
     switch (type) {
         case 'click':
             return click(mintConfig.config.click, options as ClickAnimOptions,);
