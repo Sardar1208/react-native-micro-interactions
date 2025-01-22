@@ -3,6 +3,7 @@ import { useAnimation } from "../hooks/useAnimation";
 import type { AnimationOptions, AnimationTrigger, AnimationType } from "../types/animations";
 import { Text, TouchableOpacity } from "react-native";
 import React, { forwardRef, isValidElement, useEffect, useImperativeHandle } from "react";
+import AnimatedChild from "./AnimatedChild";
 
 export interface AnimatedWrapperProps {
     children: React.ReactElement,
@@ -23,12 +24,16 @@ const AnimatedWrapper = forwardRef<AnimatedWrapperRef, AnimatedWrapperProps>(
         }
         const { animatedStyle, runIndividualAnimation } = useAnimation(animationType, animationOptions);
 
-        const AnimatedChild = Animated.createAnimatedComponent(
+        const AnimatedComponent = Animated.createAnimatedComponent(
             children.type as React.ComponentType<any>
         );
 
         let grandChildren;
         let groupAnimationSequence: (() => void)[] = [];
+
+        function addAnimaton(fn: () => void) {
+            groupAnimationSequence.push(fn);
+        }
 
         function runAnimation() {
             if (isGroup) {
@@ -47,28 +52,18 @@ const AnimatedWrapper = forwardRef<AnimatedWrapperRef, AnimatedWrapperProps>(
             const childElements = React.Children.toArray(children.props.children);
             grandChildren = childElements.map((child, index) => {
                 if (React.isValidElement(child)) {
-                    const AnimatedChild = Animated.createAnimatedComponent(child.type as React.ComponentType<any>);
-
-                    const { animatedStyle, runIndividualAnimation } = useAnimation(animationType, animationOptions);
-                    groupAnimationSequence.push(runIndividualAnimation);
-
-                    const { style, ...restProps } = child.props;
-                    const combinedStyle = [animatedStyle, style];
-
-                    // Return the animated child with its props and children
-                    return (
-                        <AnimatedChild
-                            key={index}
-                            style={combinedStyle}
-                            {...restProps}
-                        >
-                            {child.props.children}
-                        </AnimatedChild>
-                    );
+                    return <AnimatedChild
+                        key={index}
+                        animationOptions={animationOptions}
+                        animationType={animationType}
+                        addAnimation={addAnimaton}
+                        children={child}
+                    />
                 }
                 return child;
             });
         }
+
         const { style, onPress, onLongPress, ...restProps } = children.props;
         const combinedStyle = [animatedStyle, style];
 
@@ -80,7 +75,7 @@ const AnimatedWrapper = forwardRef<AnimatedWrapperRef, AnimatedWrapperProps>(
             if (animationTrigger === "init") {
                 runAnimation();
             }
-        }, []);
+        }, [children.props.children]);
 
         const touchableTypes = [
             require("react-native").TouchableOpacity,
@@ -88,7 +83,7 @@ const AnimatedWrapper = forwardRef<AnimatedWrapperRef, AnimatedWrapperProps>(
             require("react-native").TouchableHighlight,
             require("react-native").Pressable,
         ];
-        
+
         const isComponentTouchable = (component: React.ReactElement): boolean => {
             if (!isValidElement(component)) return false;
             return touchableTypes.some((TouchableType) => component.type === TouchableType);
@@ -97,14 +92,14 @@ const AnimatedWrapper = forwardRef<AnimatedWrapperRef, AnimatedWrapperProps>(
         // If the child provided is already a touchable kind, we dont need to wrap with additional touchable opacity
         if (isComponentTouchable(children)) {
             return (
-                <AnimatedChild {...restProps} style={isGroup ? style : combinedStyle} onPress={(...args: any[]) => {
+                <AnimatedComponent {...restProps} style={isGroup ? style : combinedStyle} onPress={(...args: any[]) => {
                     if (animationTrigger === "press") {
                         runAnimation();
                     }
                     onPress?.(...args);
                 }}>
                     {isGroup ? grandChildren : children.props.children}
-                </AnimatedChild>
+                </AnimatedComponent>
             )
         }
 
@@ -114,9 +109,9 @@ const AnimatedWrapper = forwardRef<AnimatedWrapperRef, AnimatedWrapperProps>(
                 onPressIn={animationTrigger === "press" ? runAnimation : undefined}
                 onLongPress={animationTrigger === "long_press" ? runAnimation : undefined}
             >
-                <AnimatedChild {...restProps} style={isGroup ? style : combinedStyle}>
+                <AnimatedComponent {...restProps} style={isGroup ? style : combinedStyle}>
                     {isGroup ? grandChildren : children.props.children}
-                </AnimatedChild>
+                </AnimatedComponent>
             </TouchableOpacity>
         );
     }
