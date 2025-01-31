@@ -22,12 +22,14 @@ function AnimatedChild({ animationType, animationOptions, addAnimation, children
     const { style, ...restProps } = children.props;
     const combinedStyle = [animatedStyle, style];
 
+    // same is_touchable logic should be implemented here
+
     return (
         <AnimatedComponent
-            style={combinedStyle}
             {...restProps}
+            style={combinedStyle}
         >
-            {children}
+            {children.props.children}
         </AnimatedComponent>
     );
 };

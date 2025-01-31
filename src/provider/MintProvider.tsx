@@ -17,6 +17,11 @@ const MintContext = createContext<{ config: AnimationConfigType }>(
             duration: 250,
             withBounce: true,
         },
+        "dropIn": {
+            duration: 250,
+            withBounce: true,
+            damping: 10,
+        },
         "textSlideVertical": {
             duration: 100,
             offset: 30,

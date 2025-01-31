@@ -13,6 +13,11 @@ export default AnimationConfig({
         duration: 250,
         withBounce: false,
     },
+    "dropIn": {
+        duration: 250,
+        withBounce: true,
+        damping: 10,
+    },
     "textSlideVertical": {
         duration:100,
         offset: 30,

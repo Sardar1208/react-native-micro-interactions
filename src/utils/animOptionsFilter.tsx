@@ -1,12 +1,12 @@
-import type { BuzzAnimOptions, ClickAnimOptions, IBuzzAnimOptions, IClickAnimOptions, IPopInAnimOptions, ITextSlideAnimOptions, PopInAnimOptions, TextSlideAnimOptions } from "../types/animations";
+import type { BuzzAnimOptions, ClickAnimOptions, DropInAnimOptions, IBuzzAnimOptions, IClickAnimOptions, IDropInAnimOptions, IPopInAnimOptions, ITextSlideAnimOptions, PopInAnimOptions, TextSlideAnimOptions } from "../types/animations";
 
-function filterClickAnimOptions(config:IClickAnimOptions , props?: ClickAnimOptions,) {
+function filterClickAnimOptions(config: IClickAnimOptions, props?: ClickAnimOptions,) {
     if (props == null) {
         return config;
     }
 
     let animationOptions: IClickAnimOptions = {
-        shrink: props.shrink ?? config.shrink ,
+        shrink: props.shrink ?? config.shrink,
         shrinkDuration: Math.abs(props.shrinkDuration ?? config.shrinkDuration),
     }
 
@@ -17,7 +17,7 @@ function filterClickAnimOptions(config:IClickAnimOptions , props?: ClickAnimOpti
     return animationOptions;
 }
 
-function filterPopInAnimOptions(config:IPopInAnimOptions,props?: PopInAnimOptions) {
+function filterPopInAnimOptions(config: IPopInAnimOptions, props?: PopInAnimOptions) {
     if (props == null) {
         return config;
     }
@@ -30,7 +30,21 @@ function filterPopInAnimOptions(config:IPopInAnimOptions,props?: PopInAnimOption
     return animationOptions;
 }
 
-function filterBuzzAnimOptions(config:IBuzzAnimOptions,props?: BuzzAnimOptions) {
+function filterDropInAnimOptions(config: IDropInAnimOptions, props?: DropInAnimOptions) {
+    if (props == null) {
+        return config;
+    }
+
+    let animationOptions: IDropInAnimOptions = {
+        duration: Math.abs(props.duration ?? config.duration),
+        withBounce: props.withBounce ?? config.withBounce,
+        damping: Math.abs(props.damping ?? config.damping),
+    }
+
+    return animationOptions;
+}
+
+function filterBuzzAnimOptions(config: IBuzzAnimOptions, props?: BuzzAnimOptions) {
     if (props == null) {
         return config;
     }
@@ -48,7 +62,7 @@ function filterBuzzAnimOptions(config:IBuzzAnimOptions,props?: BuzzAnimOptions) 
     return animationOptions;
 }
 
-function filterTextSlideAnimOptions(config:ITextSlideAnimOptions,props?: TextSlideAnimOptions) {
+function filterTextSlideAnimOptions(config: ITextSlideAnimOptions, props?: TextSlideAnimOptions) {
     if (props == null) {
         return config;
     }
@@ -66,4 +80,5 @@ export {
     filterBuzzAnimOptions,
     filterPopInAnimOptions,
     filterTextSlideAnimOptions,
+    filterDropInAnimOptions,
 };
