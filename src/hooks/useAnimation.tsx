@@ -1,10 +1,11 @@
 import { buzz } from "../animations/buzz";
 import { click } from "../animations/click";
+import { dropIn } from "../animations/drop_in";
 import { popIn } from "../animations/pop_in";
 import { textSlideHorizontal } from "../animations/text_slide_horizontal";
 import { textSlideVertical } from "../animations/text_slide_vertical";
 import { useConfig } from "../provider/MintProvider";
-import type { AnimationOptions, AnimationType, BuzzAnimOptions, ClickAnimOptions, PopInAnimOptions, TextSlideAnimOptions } from "../types/animations";
+import type { AnimationOptions, AnimationType, BuzzAnimOptions, ClickAnimOptions, DropInAnimOptions, PopInAnimOptions, TextSlideAnimOptions } from "../types/animations";
 
 
 export const useAnimation = (type: AnimationType, options?: AnimationOptions) => {
@@ -16,6 +17,8 @@ export const useAnimation = (type: AnimationType, options?: AnimationOptions) =>
             return buzz(mintConfig.config.buzz, options as BuzzAnimOptions);
         case 'pop_in':
             return popIn(mintConfig.config.popIn, options as PopInAnimOptions);
+        case 'drop_in':
+            return dropIn(mintConfig.config.dropIn, options as DropInAnimOptions);
         case 'text_slide_vertical':
             return textSlideVertical(mintConfig.config.textSlideVertical, options as TextSlideAnimOptions);
         case 'text_slide_horizontal':

@@ -1,8 +1,10 @@
-export type AnimationType = 'click' | 'buzz' | 'pop_in' | 'text_slide_vertical' | 'text_slide_horizontal';
+export type AnimationType = 'click' | 'buzz' | 'pop_in' | 'drop_in' | 'text_slide_vertical' | 'text_slide_horizontal';
 export type AnimationTrigger = 'press' | 'long_press' | 'double_press' | 'init';
 
 
-export type AnimationOptions = ClickAnimOptions | BuzzAnimOptions | PopInAnimOptions | TextSlideAnimOptions;
+// TODO - simplify this by using Partial<T> for optional values
+
+export type AnimationOptions = ClickAnimOptions | BuzzAnimOptions | PopInAnimOptions | TextSlideAnimOptions | DropInAnimOptions;
 
 export type ClickAnimOptions = {
     shrink?: number,
@@ -44,4 +46,12 @@ export type TextSlideAnimOptions = {
 export type ITextSlideAnimOptions = {
     duration: number,
     offset: number,
+}
+
+export type DropInAnimOptions = Partial<IDropInAnimOptions>;
+
+export interface IDropInAnimOptions {
+    duration: number;
+    withBounce: boolean;
+    damping: number;
 }

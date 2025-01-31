@@ -16,11 +16,13 @@
     "react-dom": "18.3.1",
     "react-native": "0.76.5",
     "react-native-reanimated": "^3.16.1",
+    "react-native-vector-icons": "^10.2.0",
     "react-native-web": "~0.19.10"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
     "@types/react-native": "^0.72.8",
+    "@types/react-native-vector-icons": "^6.4.18",
     "react-native-builder-bob": "^0.30.2"
   },
   "private": true
