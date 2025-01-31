@@ -1,6 +1,6 @@
 {
   "name": "react-native-micro-interactions",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Effortlessly enhance your React Native components with subtle micro-interactions and animations.",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
@@ -87,7 +87,7 @@
   "bugs": {
     "url": "https://github.com/Sardar1208/react-native-micro-interactions/issues"
   },
-  "homepage": "https://github.com/Sardar1208/react-native-micro-interactions#readme",
+  "homepage": "https://mint-docs.vercel.app/",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
