@@ -2,7 +2,33 @@
 
 Contributions are always welcome, no matter how large or small!
 
-We want this community to be friendly and respectful to each other. Please follow it in all your interactions with the project. Before contributing, please read the [code of conduct](./CODE_OF_CONDUCT.md).
+Before we go any further, I'll try my best to articulate my vision for this library. 
+
+## Original Vision
+
+I wanted the components in my app to feel alive. Small things like Buttons, lists, images and texts feel much better when they are visually interactive and responsive. Imagine playing a fighting game in which there is no hit animation on the enemy. It looks odd and unnatural. The same idea goes here and to achieve that, I came up with react-native-micro-interactions. 
+
+This library provides all that in simple and subtle manner that is super easy to use and modify.
+
+## How to contribute
+
+I understand that this is a project that is still very young and open on both ends. So I have decided to define a structure so that contributing is a little easier. I am dividing the work into **four categories** - 
+
+1) **Animations**: These include new micro animations that can be added to the arsenal. Keep in mind that these animations must be subtle and the animation options should be synonymous with the types that are already in use.
+
+2) **Triggers**: These include additional triggers or changes to how triggers behave. As the userbase grows, triggers must also expand to make it more acceessible.
+
+3) **Core**: Includes changes to the core **AnimatedWrapper** component or the several hooks and functionality that define the core of this library. I have spent most of my time trying to optimize it and build it in such a way that it is scalable. But once it starts to bottleneck the progress, we will need to update it.
+
+4) **Other**: For the stuff that's left out.
+
+**Note**: I am making this structure based on the current state of the library. I hope we reach a point when these guiding rails needs to be changed.
+
+## PR Rules:
+
+Just include which category the PR belongs to :)
+
+Alright! Enjoy the rest of the default guidelines!
 
 ## Development workflow
 
@@ -41,12 +67,6 @@ To run the example app on iOS:
 
 ```sh
 yarn example ios
-```
-
-To run the example app on Web:
-
-```sh
-yarn example web
 ```
 
 Make sure your code passes TypeScript and ESLint. Run the following to verify:
