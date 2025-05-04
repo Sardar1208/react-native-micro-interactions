@@ -8,7 +8,7 @@ import { useRunAnimation } from "../hooks/useRunAnimation";
 import { isComponentTouchable } from "../utils/utilityFunctions";
 
 export interface AnimatedWrapperProps {
-    children: React.ReactElement,
+    children: React.ReactElement<any>,
     animationType: AnimationType,
     animationTrigger?: AnimationTrigger,
     animationOptions?: AnimationOptions,

@@ -1,6 +1,6 @@
 import Animated from 'react-native-reanimated';
-import { useAnimation } from '../../src/hooks/useAnimation';
-import type { AnimationOptions, AnimationType } from '../../src/types/animations';
+import { useAnimation } from "../hooks/useAnimation";
+import type { AnimationOptions, AnimationType } from '../types/animations';
 import { useEffect } from 'react';
 
 interface AnimatedChildProps {
