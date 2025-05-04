@@ -9,7 +9,7 @@ This library allows you to take user rexperience to a next level by enhancing th
 
 Contributions are welcome, no matter how large or small!
 
-Start contributing - [read](../CONTRIBUTING.md)
+Start contributing - [read](./CONTRIBUTING.md)
 
 ## Note
 
