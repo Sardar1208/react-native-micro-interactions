@@ -1,11 +1,11 @@
 import { useAnimatedStyle, useSharedValue, withRepeat, withSequence, withTiming } from "react-native-reanimated";
 import type { BuzzAnimOptions, IBuzzAnimOptions } from "../types/animations";
-import { filterBuzzAnimOptions } from "../utils/animOptionsFilter";
+import { filterAnimOptions } from "../utils/animOptionsFilter";
 import { useCallback } from "react";
 
 export const buzz = (config: IBuzzAnimOptions, props?: BuzzAnimOptions) => {
 
-    const animationOptions: IBuzzAnimOptions = filterBuzzAnimOptions(config, props);
+    const animationOptions: IBuzzAnimOptions = filterAnimOptions(config, props);
 
     let rotation = useSharedValue(0);
     let size = useSharedValue(1);

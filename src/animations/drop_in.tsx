@@ -1,10 +1,10 @@
 import { useAnimatedStyle, useSharedValue, withSpring, withTiming } from "react-native-reanimated";
 import type { IDropInAnimOptions, DropInAnimOptions } from "../types/animations";
-import { filterDropInAnimOptions } from "../utils/animOptionsFilter";
+import { filterAnimOptions } from "../utils/animOptionsFilter";
 import { useCallback } from "react";
 
 export const dropIn = (config: IDropInAnimOptions, props?: DropInAnimOptions) => {
-    const animationOptions: IDropInAnimOptions = filterDropInAnimOptions(config, props);
+    const animationOptions: IDropInAnimOptions = filterAnimOptions(config, props);
     const opacity = useSharedValue(0);
     const translateY = useSharedValue(50);
 

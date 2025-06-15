@@ -1,11 +1,11 @@
 import { useAnimatedStyle, useSharedValue, withSpring, withTiming } from "react-native-reanimated";
 import type { IPopInAnimOptions, PopInAnimOptions } from "../types/animations";
-import { filterPopInAnimOptions } from "../utils/animOptionsFilter";
+import { filterAnimOptions } from "../utils/animOptionsFilter";
 import { useCallback } from "react";
 
 export const popIn = (config: IPopInAnimOptions, props?: PopInAnimOptions) => {
 
-    const animationOptions: IPopInAnimOptions = filterPopInAnimOptions(config, props);
+    const animationOptions: IPopInAnimOptions = filterAnimOptions(config, props);
     const size = useSharedValue(0);
 
     const runIndividualAnimation = useCallback(() => {
