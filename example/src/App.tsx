@@ -1,9 +1,17 @@
-import { registerRootComponent } from 'expo';
-import { useRef, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
-import { AnimatedWrapper, MintProvider } from 'react-native-micro-interactions';
-import type { AnimatedWrapperRef } from '../../src/components/AnimatedWrapper';
-import MintConfig from '../mint.config';
+import { registerRootComponent } from "expo";
+import { useRef, useState } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
+import { AnimatedWrapper, MintProvider } from "react-native-micro-interactions";
+import type { AnimatedWrapperRef } from "../../src/components/AnimatedWrapper";
+import MintConfig from "../mint.config";
 
 export default function App() {
   const errorSubmitRef = useRef<AnimatedWrapperRef>(null);
@@ -16,7 +24,6 @@ export default function App() {
     <MintProvider config={MintConfig}>
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-
           {/* Section: Simple Button */}
           <Text style={styles.sectionHeader}>Example 1: Simple Button</Text>
           <View style={styles.rowBoxContainer}>
@@ -45,7 +52,11 @@ export default function App() {
             <View style={[styles.box, styles.plainBox]}>
               <Text style={styles.boxLabel}>Before</Text>
               <View style={styles.row}>
-                <TextInput style={styles.textInput} value="example@domain.com" editable={false} />
+                <TextInput
+                  style={styles.textInput}
+                  value="example@domain.com"
+                  editable={false}
+                />
                 <TouchableOpacity style={styles.buttonPlain}>
                   <Text style={styles.buttonText}>Submit</Text>
                 </TouchableOpacity>
@@ -55,7 +66,11 @@ export default function App() {
             <View style={[styles.box, styles.mintBox]}>
               <Text style={styles.boxLabel}>After(Mint)</Text>
               <View style={styles.row}>
-                <TextInput style={styles.textInput} value="example@domain.com" editable={false} />
+                <TextInput
+                  style={styles.textInput}
+                  value="example@domain.com"
+                  editable={false}
+                />
                 <AnimatedWrapper animationType="buzz" ref={errorSubmitRef}>
                   <TouchableOpacity
                     style={styles.buttonMint}
@@ -107,7 +122,7 @@ export default function App() {
                 <AnimatedWrapper
                   isGroup={true}
                   animationType="pop_in"
-                  animationTrigger='init'
+                  animationTrigger="init"
                   animationOptions={{
                     withBounce: false,
                   }}
@@ -125,7 +140,9 @@ export default function App() {
           <View style={styles.divider} />
 
           {/* Section: Text Slide Animation */}
-          <Text style={styles.sectionHeader}>Example 4: Text Slide Animation</Text>
+          <Text style={styles.sectionHeader}>
+            Example 4: Text Slide Animation
+          </Text>
           <View style={styles.columnBoxContainer}>
             <View style={[styles.box, styles.plainBox]}>
               <Text style={styles.boxLabel}>Before</Text>
@@ -136,7 +153,11 @@ export default function App() {
               >
                 <Text style={styles.buttonText}>Show Description</Text>
               </TouchableOpacity>
-              {showPlainDescription && <Text style={styles.description}>This is a plain description.</Text>}
+              {showPlainDescription && (
+                <Text style={styles.description}>
+                  This is a plain description.
+                </Text>
+              )}
             </View>
 
             <View style={[styles.box, styles.mintBox]}>
@@ -149,8 +170,13 @@ export default function App() {
                 <Text style={styles.buttonText}>Show Description</Text>
               </TouchableOpacity>
               {showMintDescription && (
-                <AnimatedWrapper animationType="text_slide_horizontal" animationTrigger='init'>
-                  <Text style={styles.description}>This is a Mint animated description.</Text>
+                <AnimatedWrapper
+                  animationType="text_slide_horizontal"
+                  animationTrigger="init"
+                >
+                  <Text style={styles.description}>
+                    This is a Mint animated description.
+                  </Text>
                 </AnimatedWrapper>
               )}
             </View>
@@ -166,7 +192,7 @@ registerRootComponent(App);
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#1c1c1c',
+    backgroundColor: "#1c1c1c",
     paddingTop: 20,
   },
   scrollContainer: {
@@ -175,13 +201,13 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     fontSize: 22,
-    fontWeight: 'bold',
-    color: '#f8f8f8',
+    fontWeight: "bold",
+    color: "#f8f8f8",
     marginBottom: 10,
   },
   rowBoxContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 30,
   },
   columnBoxContainer: {
@@ -193,65 +219,65 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   plainBox: {
-    backgroundColor: 'rgba(255, 255, 0, 0.1)',
+    backgroundColor: "rgba(255, 255, 0, 0.1)",
   },
   mintBox: {
-    backgroundColor: 'rgba(30, 144, 255, 0.1)',
+    backgroundColor: "rgba(30, 144, 255, 0.1)",
   },
   row: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   textInput: {
     flex: 1,
-    backgroundColor: '#333',
+    backgroundColor: "#333",
     borderRadius: 8,
     padding: 10,
-    color: '#f0f0f0',
+    color: "#f0f0f0",
     marginRight: 10,
   },
   buttonPlain: {
-    backgroundColor: '#555',
+    backgroundColor: "#555",
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 8,
   },
   buttonMint: {
-    backgroundColor: '#673AB7',
+    backgroundColor: "#673AB7",
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 8,
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
   },
   group: {
     marginTop: 10,
   },
   tile: {
-    backgroundColor: '#444',
+    backgroundColor: "#444",
     padding: 10,
     borderRadius: 8,
-    color: '#fff',
+    color: "#fff",
     marginBottom: 5,
-    textAlign: 'center',
+    textAlign: "center",
   },
   description: {
     marginTop: 10,
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
   },
   divider: {
     height: 1,
-    backgroundColor: '#777',
+    backgroundColor: "#777",
     marginVertical: 20,
   },
   boxLabel: {
     fontSize: 14,
-    fontWeight: 'bold',
-    color: '#f8f8f8',
+    fontWeight: "bold",
+    color: "#f8f8f8",
     marginBottom: 5,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
