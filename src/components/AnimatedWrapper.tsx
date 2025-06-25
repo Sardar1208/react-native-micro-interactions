@@ -21,9 +21,9 @@ export interface AnimatedWrapperRef {
 
 const AnimatedWrapper = forwardRef<AnimatedWrapperRef, AnimatedWrapperProps>(
     ({ children, animationTrigger, animationType, animationOptions, isGroup = false, }, ref) => {
-        if (animationType === "text_slide_vertical" || animationType === "text_slide_horizontal" && children.type !== Text) {
-            return children;
-        }
+        // if (animationType === "text_slide_vertical" || animationType === "text_slide_horizontal" && children.type !== Text) {
+        //     return children;
+        // }
         const { animatedStyle, runIndividualAnimation } = useAnimation(animationType, animationOptions);
         const { addAnimation, runAnimation, runCurrentAnimation } = useRunAnimation(runIndividualAnimation, isGroup);
 

@@ -9,9 +9,8 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import { AnimatedWrapper, MintProvider } from "react-native-micro-interactions";
+import { AnimatedWrapper } from "react-native-micro-interactions";
 import type { AnimatedWrapperRef } from "../../src/components/AnimatedWrapper";
-import MintConfig from "../mint.config";
 
 export default function App() {
   const errorSubmitRef = useRef<AnimatedWrapperRef>(null);
@@ -21,169 +20,170 @@ export default function App() {
   const [showMintDescription, setShowMintDescription] = useState(false);
 
   return (
-    <MintProvider config={MintConfig}>
-      <SafeAreaView style={styles.safeArea}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          {/* Section: Simple Button */}
-          <Text style={styles.sectionHeader}>Example 1: Simple Button</Text>
-          <View style={styles.rowBoxContainer}>
-            <View style={[styles.box, styles.plainBox]}>
-              <Text style={styles.boxLabel}>Before</Text>
-              <TouchableOpacity style={styles.buttonPlain}>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {/* Section: Simple Button */}
+        <Text style={styles.sectionHeader}>Example 1: Simple Button</Text>
+        <View style={styles.rowBoxContainer}>
+          <View style={[styles.box, styles.plainBox]}>
+            <Text style={styles.boxLabel}>Before</Text>
+            <TouchableOpacity style={styles.buttonPlain}>
+              <Text style={styles.buttonText}>Press me</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={[styles.box, styles.mintBox]}>
+            <Text style={styles.boxLabel}>Mint</Text>
+            <AnimatedWrapper
+              animationTrigger="press"
+              animationType="click"
+            >
+              <TouchableOpacity style={styles.buttonMint} activeOpacity={1}>
                 <Text style={styles.buttonText}>Press me</Text>
               </TouchableOpacity>
-            </View>
+            </AnimatedWrapper>
+          </View>
+        </View>
 
-            <View style={[styles.box, styles.mintBox]}>
-              <Text style={styles.boxLabel}>Mint</Text>
-              <AnimatedWrapper animationTrigger="press" animationType="click">
-                <TouchableOpacity style={styles.buttonMint} activeOpacity={1}>
-                  <Text style={styles.buttonText}>Press me</Text>
+        <View style={styles.divider} />
+
+        {/* Section: Error Animation */}
+        <Text style={styles.sectionHeader}>Example 2: Error Animation</Text>
+        <View style={styles.columnBoxContainer}>
+          <View style={[styles.box, styles.plainBox]}>
+            <Text style={styles.boxLabel}>Before</Text>
+            <View style={styles.row}>
+              <TextInput
+                style={styles.textInput}
+                value="example@domain.com"
+                editable={false}
+              />
+              <TouchableOpacity style={styles.buttonPlain}>
+                <Text style={styles.buttonText}>Submit</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={[styles.box, styles.mintBox]}>
+            <Text style={styles.boxLabel}>After(Mint)</Text>
+            <View style={styles.row}>
+              <TextInput
+                style={styles.textInput}
+                value="example@domain.com"
+                editable={false}
+              />
+              <AnimatedWrapper animationType="buzz" ref={errorSubmitRef}>
+                <TouchableOpacity
+                  style={styles.buttonMint}
+                  activeOpacity={1}
+                  onPress={() => errorSubmitRef.current?.runAnimation()}
+                >
+                  <Text style={styles.buttonText}>Submit</Text>
                 </TouchableOpacity>
               </AnimatedWrapper>
             </View>
           </View>
+        </View>
 
-          <View style={styles.divider} />
+        <View style={styles.divider} />
 
-          {/* Section: Error Animation */}
-          <Text style={styles.sectionHeader}>Example 2: Error Animation</Text>
-          <View style={styles.columnBoxContainer}>
-            <View style={[styles.box, styles.plainBox]}>
-              <Text style={styles.boxLabel}>Before</Text>
-              <View style={styles.row}>
-                <TextInput
-                  style={styles.textInput}
-                  value="example@domain.com"
-                  editable={false}
-                />
-                <TouchableOpacity style={styles.buttonPlain}>
-                  <Text style={styles.buttonText}>Submit</Text>
-                </TouchableOpacity>
+        {/* Section: Group Animation */}
+        <Text style={styles.sectionHeader}>Example 3: Group Animation</Text>
+        <View style={styles.columnBoxContainer}>
+          <View style={[styles.box, styles.plainBox]}>
+            <Text style={styles.boxLabel}>Before</Text>
+
+            <TouchableOpacity
+              style={styles.buttonPlain}
+              onPress={() => setShowPlainList(!showPlainList)}
+            >
+              <Text style={styles.buttonText}>Show Movie Categories</Text>
+            </TouchableOpacity>
+            {showPlainList && (
+              <View style={styles.group}>
+                <Text style={styles.tile}>Category 1</Text>
+                <Text style={styles.tile}>Category 2</Text>
+                <Text style={styles.tile}>Category 3</Text>
               </View>
-            </View>
-
-            <View style={[styles.box, styles.mintBox]}>
-              <Text style={styles.boxLabel}>After(Mint)</Text>
-              <View style={styles.row}>
-                <TextInput
-                  style={styles.textInput}
-                  value="example@domain.com"
-                  editable={false}
-                />
-                <AnimatedWrapper animationType="buzz" ref={errorSubmitRef}>
-                  <TouchableOpacity
-                    style={styles.buttonMint}
-                    activeOpacity={1}
-                    onPress={() => errorSubmitRef.current?.runAnimation()}
-                  >
-                    <Text style={styles.buttonText}>Submit</Text>
-                  </TouchableOpacity>
-                </AnimatedWrapper>
-              </View>
-            </View>
+            )}
           </View>
 
-          <View style={styles.divider} />
+          <View style={[styles.box, styles.mintBox]}>
+            <Text style={styles.boxLabel}>After(Mint)</Text>
 
-          {/* Section: Group Animation */}
-          <Text style={styles.sectionHeader}>Example 3: Group Animation</Text>
-          <View style={styles.columnBoxContainer}>
-            <View style={[styles.box, styles.plainBox]}>
-              <Text style={styles.boxLabel}>Before</Text>
-
-              <TouchableOpacity
-                style={styles.buttonPlain}
-                onPress={() => setShowPlainList(!showPlainList)}
+            <TouchableOpacity
+              style={styles.buttonMint}
+              onPress={() => {
+                setShowMintList(!showMintList);
+              }}
+            >
+              <Text style={styles.buttonText}>Show Movie Categories</Text>
+            </TouchableOpacity>
+            {showMintList && (
+              <AnimatedWrapper
+                isGroup={true}
+                animationType="fade_in"
+                animationTrigger="init"
+                animationOptions={{
+                  withBounce: false,
+                }}
               >
-                <Text style={styles.buttonText}>Show Movie Categories</Text>
-              </TouchableOpacity>
-              {showPlainList && (
                 <View style={styles.group}>
                   <Text style={styles.tile}>Category 1</Text>
                   <Text style={styles.tile}>Category 2</Text>
                   <Text style={styles.tile}>Category 3</Text>
                 </View>
-              )}
-            </View>
+              </AnimatedWrapper>
+            )}
+          </View>
+        </View>
 
-            <View style={[styles.box, styles.mintBox]}>
-              <Text style={styles.boxLabel}>After(Mint)</Text>
+        <View style={styles.divider} />
 
-              <TouchableOpacity
-                style={styles.buttonMint}
-                onPress={() => {
-                  setShowMintList(!showMintList);
-                }}
-              >
-                <Text style={styles.buttonText}>Show Movie Categories</Text>
-              </TouchableOpacity>
-              {showMintList && (
-                <AnimatedWrapper
-                  isGroup={true}
-                  animationType="pop_in"
-                  animationTrigger="init"
-                  animationOptions={{
-                    withBounce: false,
-                  }}
-                >
-                  <View style={styles.group}>
-                    <Text style={styles.tile}>Category 1</Text>
-                    <Text style={styles.tile}>Category 2</Text>
-                    <Text style={styles.tile}>Category 3</Text>
-                  </View>
-                </AnimatedWrapper>
-              )}
-            </View>
+        {/* Section: Text Slide Animation */}
+        <Text style={styles.sectionHeader}>
+          Example 4: Text Slide Animation
+        </Text>
+        <View style={styles.columnBoxContainer}>
+          <View style={[styles.box, styles.plainBox]}>
+            <Text style={styles.boxLabel}>Before</Text>
+
+            <TouchableOpacity
+              style={styles.buttonPlain}
+              onPress={() => setShowPlainDescription(!showPlainDescription)}
+            >
+              <Text style={styles.buttonText}>Show Description</Text>
+            </TouchableOpacity>
+            {showPlainDescription && (
+              <Text style={styles.description}>
+                This is a plain description.
+              </Text>
+            )}
           </View>
 
-          <View style={styles.divider} />
+          <View style={[styles.box, styles.mintBox]}>
+            <Text style={styles.boxLabel}>After(Mint)</Text>
 
-          {/* Section: Text Slide Animation */}
-          <Text style={styles.sectionHeader}>
-            Example 4: Text Slide Animation
-          </Text>
-          <View style={styles.columnBoxContainer}>
-            <View style={[styles.box, styles.plainBox]}>
-              <Text style={styles.boxLabel}>Before</Text>
-
-              <TouchableOpacity
-                style={styles.buttonPlain}
-                onPress={() => setShowPlainDescription(!showPlainDescription)}
+            <TouchableOpacity
+              style={styles.buttonMint}
+              onPress={() => setShowMintDescription(!showMintDescription)}
+            >
+              <Text style={styles.buttonText}>Show Description</Text>
+            </TouchableOpacity>
+            {showMintDescription && (
+              <AnimatedWrapper
+                animationType="text_slide_horizontal"
+                animationTrigger="init"
               >
-                <Text style={styles.buttonText}>Show Description</Text>
-              </TouchableOpacity>
-              {showPlainDescription && (
                 <Text style={styles.description}>
-                  This is a plain description.
+                  This is a Mint animated description.
                 </Text>
-              )}
-            </View>
-
-            <View style={[styles.box, styles.mintBox]}>
-              <Text style={styles.boxLabel}>After(Mint)</Text>
-
-              <TouchableOpacity
-                style={styles.buttonMint}
-                onPress={() => setShowMintDescription(!showMintDescription)}
-              >
-                <Text style={styles.buttonText}>Show Description</Text>
-              </TouchableOpacity>
-              {showMintDescription && (
-                <AnimatedWrapper
-                  animationType="text_slide_horizontal"
-                  animationTrigger="init"
-                >
-                  <Text style={styles.description}>
-                    This is a Mint animated description.
-                  </Text>
-                </AnimatedWrapper>
-              )}
-            </View>
+              </AnimatedWrapper>
+            )}
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </MintProvider>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

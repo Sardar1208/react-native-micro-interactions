@@ -2,24 +2,33 @@ export type AnimationType =
   | "click"
   | "buzz"
   | "pop_in"
+  | "pop_out"
   | "drop_in"
-  | "text_slide_vertical"
-  | "text_slide_horizontal";
+  | "fade_in"
+  | "fade_out"
+  | "flip_horizontal"
+  | "flip_vertical"
+  | "slide_vertical"
+  | "slide_horizontal";
 export type AnimationTrigger = "press" | "long_press" | "double_press" | "init";
 
 export type AnimationOptions =
   | ClickAnimOptions
   | BuzzAnimOptions
-  | PopInAnimOptions
-  | TextSlideAnimOptions
-  | DropInAnimOptions;
+  | PopAnimOptions
+  | SlideAnimOptions
+  | DropInAnimOptions
+  | FlipAnimOptions
+  | FadeAnimOptions;
 
 export type IAnimationOptions =
   | IClickAnimOptions
   | IBuzzAnimOptions
-  | IPopInAnimOptions
-  | ITextSlideAnimOptions
-  | IDropInAnimOptions;
+  | IPopAnimOptions
+  | ISlideAnimOptions
+  | IDropInAnimOptions
+  | IFlipAnimOptions
+  | IFadeAnimOptions;
 
 export type ClickAnimOptions = Partial<IClickAnimOptions>;
 
@@ -36,18 +45,19 @@ export type IBuzzAnimOptions = {
   duration: number;
 };
 
-export type PopInAnimOptions = Partial<IPopInAnimOptions>;
+export type PopAnimOptions = Partial<IPopAnimOptions>;
 
-export type IPopInAnimOptions = {
+export type IPopAnimOptions = {
   duration: number;
   withBounce: boolean;
 };
 
-export type TextSlideAnimOptions = Partial<ITextSlideAnimOptions>;
+export type SlideAnimOptions = Partial<ISlideAnimOptions>;
 
-export type ITextSlideAnimOptions = {
+export type ISlideAnimOptions = {
   duration: number;
   offset: number;
+  withBounce: boolean;
 };
 
 export type DropInAnimOptions = Partial<IDropInAnimOptions>;
@@ -57,3 +67,17 @@ export interface IDropInAnimOptions {
   withBounce: boolean;
   damping: number;
 }
+
+export type FadeAnimOptions = Partial<IFadeAnimOptions>;
+
+export type IFadeAnimOptions = {
+  duration: number;
+};
+
+export type FlipAnimOptions = Partial<IFlipAnimOptions>;
+
+export type IFlipAnimOptions = {
+  duration: number;
+  rotation: number;
+};
+

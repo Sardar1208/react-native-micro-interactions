@@ -5,8 +5,8 @@ import { useCallback } from "react";
 
 export const dropIn = (config: IDropInAnimOptions, props?: DropInAnimOptions) => {
     const animationOptions: IDropInAnimOptions = filterAnimOptions(config, props);
-    const opacity = useSharedValue(0);
-    const translateY = useSharedValue(50);
+    const opacity = useSharedValue(1);
+    const translateY = useSharedValue(0);
 
     const runIndividualAnimation = useCallback(() => {
         opacity.value = 0;
