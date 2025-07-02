@@ -1,7 +1,7 @@
 import Animated from "react-native-reanimated";
 import { useAnimation } from "../hooks/useAnimation";
 import type { AnimationOptions, AnimationTrigger, AnimationType } from "../types/animations";
-import { Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo } from "react";
 import AnimatedChild from "./AnimatedChild";
 import { useRunAnimation } from "../hooks/useRunAnimation";
@@ -21,9 +21,6 @@ export interface AnimatedWrapperRef {
 
 const AnimatedWrapper = forwardRef<AnimatedWrapperRef, AnimatedWrapperProps>(
     ({ children, animationTrigger, animationType, animationOptions, isGroup = false, }, ref) => {
-        // if (animationType === "text_slide_vertical" || animationType === "text_slide_horizontal" && children.type !== Text) {
-        //     return children;
-        // }
         const { animatedStyle, runIndividualAnimation } = useAnimation(animationType, animationOptions);
         const { addAnimation, runAnimation, runCurrentAnimation } = useRunAnimation(runIndividualAnimation, isGroup);
 

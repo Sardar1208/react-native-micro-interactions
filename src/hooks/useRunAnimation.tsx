@@ -20,7 +20,7 @@ export function useRunAnimation(runIndividualAnimation: () => void, isGroup: boo
             groupAnimationSequence.forEach((fn, index) => {
                 setTimeout(() => {
                     fn();
-                }, 200 * index); // Delay each animation by 200ms
+                }, 100 * index); // Delay each animation by 200ms
             });
         } else {
             runIndividualAnimation();
@@ -33,7 +33,7 @@ export function useRunAnimation(runIndividualAnimation: () => void, isGroup: boo
             allGroupAnimationSequence.current.forEach((fn, index) => {
                 setTimeout(() => {
                     fn();
-                }, 200 * index); // Delay each animation by 200ms
+                }, 100 * index); // Delay each animation by 200ms
             });
         } else {
             runIndividualAnimation();
