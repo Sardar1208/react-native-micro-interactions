@@ -1,3 +1,4 @@
+/// <reference path="./types/global.d.ts" />
 import AnimatedWrapper, { type AnimatedWrapperProps } from "./components/AnimatedWrapper";
 import { AnimationConfig } from "./constants/defaults"
 import { MintProvider, useConfig } from "./provider/MintProvider";
