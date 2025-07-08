@@ -13,6 +13,12 @@ interface AnimatedChildProps {
 function AnimatedChild({ animationType, animationOptions, addAnimation, children }: AnimatedChildProps) {
 
     const AnimatedComponent = Animated.createAnimatedComponent(children.type as React.ComponentType<any>);
+
+    if(children.props != undefined) {
+        animationType = children.props.animationType ?? animationType;
+        animationOptions = children.props.animationOptions ?? animationOptions;
+    }
+
     const { animatedStyle, runIndividualAnimation } = useAnimation(animationType, animationOptions);
 
     useEffect(() => {

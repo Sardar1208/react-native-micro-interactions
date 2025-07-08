@@ -30,10 +30,12 @@ function filterAnimOptions<T extends IAnimationOptions>(
   for (let key in config) {
     let value = props && props[key] !== undefined ? props[key] : config[key];
     if (checks[key] !== undefined) {
+      //@ts-ignore
       for (let check of checks[key]) {
         value = check(value);
       }
     }
+    //@ts-ignore
     animationOptions[key] = value;
   }
 

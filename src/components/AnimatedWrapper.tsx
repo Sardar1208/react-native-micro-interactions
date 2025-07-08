@@ -1,95 +1,156 @@
 import Animated from "react-native-reanimated";
 import { useAnimation } from "../hooks/useAnimation";
-import type { AnimationOptions, AnimationTrigger, AnimationType } from "../types/animations";
-import { Text, TouchableOpacity } from "react-native";
-import React, { forwardRef, useEffect, useImperativeHandle, useMemo } from "react";
+import type {
+  AnimationOptions,
+  AnimationTrigger,
+  AnimationType,
+} from "../types/animations";
+import { TouchableOpacity } from "react-native";
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+} from "react";
 import AnimatedChild from "./AnimatedChild";
 import { useRunAnimation } from "../hooks/useRunAnimation";
-import { isComponentTouchable } from "../utils/utilityFunctions";
+import {
+  handleInvalidInput,
+  isComponentTouchable,
+} from "../utils/utilityFunctions";
 
 export interface AnimatedWrapperProps {
-    children: React.ReactElement<any>,
-    animationType: AnimationType,
-    animationTrigger?: AnimationTrigger,
-    animationOptions?: AnimationOptions,
-    isGroup?: boolean,
+  children: React.ReactElement<any>;
+  animationType: AnimationType;
+  animationTrigger?: AnimationTrigger;
+  animationOptions?: AnimationOptions;
+  isGroup?: boolean;
 }
 
 export interface AnimatedWrapperRef {
-    runAnimation: () => void;
+  runAnimation: () => void;
 }
 
 const AnimatedWrapper = forwardRef<AnimatedWrapperRef, AnimatedWrapperProps>(
-    ({ children, animationTrigger, animationType, animationOptions, isGroup = false, }, ref) => {
-        // if (animationType === "text_slide_vertical" || animationType === "text_slide_horizontal" && children.type !== Text) {
-        //     return children;
-        // }
-        const { animatedStyle, runIndividualAnimation } = useAnimation(animationType, animationOptions);
-        const { addAnimation, runAnimation, runCurrentAnimation } = useRunAnimation(runIndividualAnimation, isGroup);
+  (
+    {
+      children,
+      animationTrigger,
+      animationType,
+      animationOptions,
+      isGroup = false,
+    },
+    ref
+  ) => {
+    const childElements = React.Children.toArray(children);
 
-        const AnimatedComponent = useMemo(() => {
-            return Animated.createAnimatedComponent(children.type as React.ComponentType<any>);
-        }, [children.type]);
+    // Validate the children
+    handleInvalidInput(childElements, isGroup);
 
-        const childElements = React.Children.toArray(children.props.children);
-        const { style, onPress, onLongPress, ...restProps } = children.props;
-        const combinedStyle = [animatedStyle, style];
+    const { animatedStyle, runIndividualAnimation } = useAnimation(
+      animationType,
+      animationOptions
+    );
 
-        useImperativeHandle(ref, () => ({
-            runAnimation, // Expose runAnimation to the parent component
-        }));
+    const { addAnimation, runAnimation, runCurrentAnimation } = useRunAnimation(
+      runIndividualAnimation,
+      isGroup
+    );
 
-        useEffect(() => {
-            if (animationTrigger === "init") {
-                runCurrentAnimation();
-            }
-        }, [children.props.children]);
+    // Expose runAnimation to the parent component
+    useImperativeHandle(ref, () => ({
+      runAnimation,
+    }));
 
-        // render animated grandchildren in case of group animations
-        const mapGrandChildren = () =>
-            childElements.map((child, index) => {
-                if (React.isValidElement(child)) {
-                    return (
-                        <AnimatedChild
-                            key={child.key || index}
-                            animationOptions={animationOptions}
-                            animationType={animationType}
-                            addAnimation={addAnimation}
-                        >
-                            {child}
-                        </AnimatedChild>
-                    );
-                }
-                return child;
-            });
+    useEffect(() => {
+      if (animationTrigger === "init") {
+        runCurrentAnimation();
+      }
+    }, [children]);
 
-        // If the child provided is already a touchable kind, we dont need to wrap with additional touchable opacity
-        if (isComponentTouchable(children)) {
-            return (
-                <AnimatedComponent {...restProps} style={isGroup ? style : combinedStyle} onPress={(...args: any[]) => {
-                    if (animationTrigger === "press") {
-                        runCurrentAnimation();
-                    }
-                    onPress?.(...args);
-                }}>
-                    {isGroup ? mapGrandChildren() : children.props.children}
-                </AnimatedComponent>
-            )
-        }
-
-        return (
-            <TouchableOpacity
-                activeOpacity={1}
-                onPressIn={animationTrigger === "press" ? runCurrentAnimation : undefined}
-                onLongPress={animationTrigger === "long_press" ? runCurrentAnimation : undefined}
+    // render animated grandchildren in case of group animations
+    const mapGrandChildren = () =>
+      childElements.map((child, index) => {
+        if (React.isValidElement(child)) {
+          return (
+            <AnimatedChild
+              key={child.key || index}
+              animationOptions={animationOptions}
+              animationType={animationType}
+              addAnimation={addAnimation}
             >
-                <AnimatedComponent {...restProps} style={isGroup ? style : combinedStyle}>
-                    {isGroup ? mapGrandChildren() : children.props.children}
-                </AnimatedComponent>
-            </TouchableOpacity>
-        );
-    }
-);
+              {child}
+            </AnimatedChild>
+          );
+        }
+        return child;
+      });
 
+    // handle non group animations
+    if (isGroup === false) {
+      const AnimatedComponent = useMemo(() => {
+        return Animated.createAnimatedComponent(
+          children.type as React.ComponentType<any>
+        );
+      }, [children.type]);
+
+      const { style, onPress, onLongPress, ...restProps } = children.props;
+      const combinedStyle = [animatedStyle, style];
+
+      // If the child provided is already a touchable kind, we dont need to wrap with additional touchable opacity
+      if (isComponentTouchable(children)) {
+        if (isGroup === false) {
+          return (
+            <AnimatedComponent
+              {...restProps}
+              style={combinedStyle}
+              onPress={(...args: any[]) => {
+                if (animationTrigger === "press") {
+                  runCurrentAnimation();
+                }
+                onPress?.(...args);
+              }}
+            >
+              {children.props.children}
+            </AnimatedComponent>
+          );
+        } else {
+          return mapGrandChildren();
+        }
+      }
+
+      return (
+        <TouchableOpacity
+          activeOpacity={1}
+          onPressIn={
+            animationTrigger === "press" ? runCurrentAnimation : undefined
+          }
+          onLongPress={
+            animationTrigger === "long_press" ? runCurrentAnimation : undefined
+          }
+        >
+          <AnimatedComponent {...restProps} style={combinedStyle}>
+            {children.props.children}
+          </AnimatedComponent>
+        </TouchableOpacity>
+      );
+    } else {
+      // handle group animations
+      return (
+        <TouchableOpacity
+          activeOpacity={1}
+          onPressIn={
+            animationTrigger === "press" ? runCurrentAnimation : undefined
+          }
+          onLongPress={
+            animationTrigger === "long_press" ? runCurrentAnimation : undefined
+          }
+        >
+          {mapGrandChildren()}
+        </TouchableOpacity>
+      );
+    }
+  }
+);
 
 export default AnimatedWrapper;
